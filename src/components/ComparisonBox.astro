@@ -1,0 +1,87 @@
+---
+import type { Comparison } from "./Section.astro";
+
+export interface Props {
+	comparison: Comparison;
+	left?: true;
+	right?: true;
+}
+
+const currency = new Intl.NumberFormat("en-US", {
+	style: "currency",
+	currency: "USD",
+	maximumFractionDigits: 10,
+});
+const number = new Intl.NumberFormat("en-US", {
+	style: "decimal",
+});
+
+function formatComparison(n: number, unit: Comparison["unit"]): string {
+	if (unit === "$") {
+		if (n === 0) return "FREE";
+		return currency.format(n);
+	} else if (!unit) {
+		return number.format(n);
+	}
+	return `${n} ${unit}`;
+}
+
+const { comparison, left } = Astro.props;
+
+const bigNumber = left ? comparison.left : comparison.right;
+const info = left ? comparison.leftInfo : comparison.rightInfo;
+const good = left ? comparison.good === "left" : comparison.good === "right";
+
+const showPer = comparison.per && !(comparison.unit === "$" && bigNumber === 0);
+---
+
+<div
+	class="rounded-xl transition-shadow duration-100 group-hover/row:ring ring-slate-700 group-hover/row:border-slate-700 bg-slate-950 border border-slate-800 shadow-lg w-64 h-20 flex items-center justify-center flex-col relative"
+>
+	{
+		info && (
+			<>
+				<span class="absolute top-0 group right-0 hover:bg-white/10 transition-colors rounded-full m-0.5 p-0.5">
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="stroke-none cursor-pointer fill-slate-400"
+					>
+						<path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />{" "}
+					</svg>
+					<div class="absolute hidden group-hover:block top-0 pb-2 right-0 -translate-y-[calc(100%_-_0.5rem)] translate-x-1/2">
+						<div class="bg-slate-800 whitespace-nowrap p-2 rounded-full">
+							{info}
+						</div>
+					</div>
+				</span>
+			</>
+		)
+	}
+	<span
+		class:list={[
+			"text-3xl font-mono",
+			{
+				"text-green-500": good,
+			},
+		]}
+	>
+		{formatComparison(bigNumber, comparison.unit)}
+	</span>
+	{
+		showPer && (
+			<span class="text-xl text-slate-500">
+				per{" "}
+				{comparison.per === 1 ? (
+					""
+				) : (
+					<span class="font-mono">{number.format(comparison.per!)}</span>
+				)}{" "}
+				{comparison.perUnit}
+			</span>
+		)
+	}
+</div>

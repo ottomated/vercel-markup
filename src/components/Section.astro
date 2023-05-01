@@ -1,0 +1,95 @@
+---
+import ComparisonBox from "./ComparisonBox.astro";
+import ComparisonMiddle from "./ComparisonMiddle.astro";
+
+export type Comparison = {
+	name: string;
+	// type: "amount";
+	good: "left" | "right" | "equal";
+	left: number;
+	right: number;
+	leftInfo?: string;
+	rightInfo?: string;
+	unit?: "$" | "GB" | "hours";
+	per?: number;
+	perUnit?: string;
+};
+// | {
+// 		type: "monthly";
+// 		left: number;
+// 		right: number;
+// 		unit: string;
+//   };
+
+export interface Props {
+	left: string;
+	right: string;
+	leftHref: string;
+	rightHref: string;
+	comparisons: Comparison[];
+}
+
+const { left, right, leftHref, rightHref, comparisons } = Astro.props;
+---
+
+<div class="flex justify-center m-2 gap-2 h-12">
+	<div class="px-4 w-64 relative">
+		<div class="absolute flex items-center left-1/2 -translate-x-1/2">
+			<slot name="left-icon" />
+			<a
+				href={leftHref}
+				rel="noreferrer"
+				target="_blank"
+				class="ml-2 hover:underline font-bold text-4xl whitespace-nowrap"
+				>{left}</a
+			>
+		</div>
+	</div>
+	<div class="w-48"></div>
+	<div class="px-4 w-64 relative">
+		<div class="absolute flex items-center left-1/2 -translate-x-1/2">
+			<slot name="right-icon" />
+			<a
+				href={rightHref}
+				rel="noreferrer"
+				target="_blank"
+				class="ml-2 hover:underline font-bold text-4xl whitespace-nowrap"
+				>{right}</a
+			>
+		</div>
+	</div>
+</div>
+{
+	comparisons.map((comparison) => (
+		<div class="flex group/row gap-2 m-2 justify-center">
+			<ComparisonBox left comparison={comparison} />
+			<ComparisonMiddle comparison={comparison} />
+			<ComparisonBox right comparison={comparison} />
+		</div>
+	))
+}
+<!-- <div class="w-full flex">
+	<div class="bg-green-50 pt-10 px-1">
+		{
+			comparisons.map((comparison) => (
+				<div class="text-right">
+					<span>{comparison.name}</span>
+				</div>
+			))
+		}
+	</div>
+	<div class="bg-blue-50 flex-1 shrink-0">
+		<h1 class="text-center my-1 text-2xl">{left}</h1>
+		{
+			comparisons.map((comparison) => (
+				<div>
+					<span>{comparison.left}</span>
+				</div>
+			))
+		}
+	</div>
+	<div class="bg-red-50 flex-1 shrink-0">
+		<h1 class="text-center my-1 text-2xl">{right}</h1>
+		{comparisons.map((comparison) => <div>{comparison.right}</div>)}
+	</div>
+</div> -->

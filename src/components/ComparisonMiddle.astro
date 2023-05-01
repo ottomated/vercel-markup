@@ -1,0 +1,26 @@
+---
+import type { Comparison } from "./Section.astro";
+
+export interface Props {
+	comparison: Comparison;
+}
+
+const { comparison } = Astro.props;
+
+const markup = (comparison.left / comparison.right - 1) * 100;
+---
+
+<div class="h-20 w-48 flex items-center justify-center flex-col">
+	<div class="w-full flex items-center">
+		<div class="bg-slate-700 h-px flex-1"></div>
+		<p class="text-xl mx-1">{comparison.name}</p>
+		<div class="bg-slate-700 h-px flex-1"></div>
+	</div>
+	{
+		markup !== Infinity && markup !== -Infinity && markup !== 0 && (
+			<p class="font-mono text-red-400">
+				{markup > 0 ? `Markup: +${markup.toFixed()}%` : markup.toFixed() + "%"}
+			</p>
+		)
+	}
+</div>
