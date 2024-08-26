@@ -4,7 +4,6 @@ import ComparisonMiddle from "./ComparisonMiddle.astro";
 
 export type Comparison = {
 	name: string;
-	// type: "amount";
 	good: "left" | "right" | "equal";
 	left: number;
 	right: number;
@@ -14,12 +13,6 @@ export type Comparison = {
 	per?: number;
 	perUnit?: string;
 };
-// | {
-// 		type: "monthly";
-// 		left: number;
-// 		right: number;
-// 		unit: string;
-//   };
 
 export interface Props {
 	left: string;
@@ -32,7 +25,7 @@ export interface Props {
 const { left, right, leftHref, rightHref, comparisons } = Astro.props;
 ---
 
-<div class="flex justify-center m-2 gap-2 h-12">
+<div class="flex justify-center m-2 gap-2 h-12 my-8">
 	<div class="px-4 w-64 relative">
 		<div class="absolute flex items-center left-1/2 -translate-x-1/2">
 			<slot name="left-icon" />
