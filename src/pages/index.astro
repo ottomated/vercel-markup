@@ -1,5 +1,5 @@
 ---
-import Section, { Comparison } from "../components/Section.astro";
+import Section, { type Comparison } from "../components/Section.astro";
 import Layout from "../layouts/Layout.astro";
 
 const kv: Comparison[] = [
@@ -31,24 +31,20 @@ const kv: Comparison[] = [
 	},
 	{
 		name: "Free Storage",
-		good: "right",
+		good: "equal",
 		left: 0.25,
-		right: 1,
+		right: 0.25,
 		unit: "GB",
 	},
 	{
 		name: "Paid Storage",
-		good: "right",
-		left: 0.3,
+		good: "equal",
+		left: 0.25,
 		right: 0.25,
 		unit: "$",
 		per: 1,
 		perUnit: "GB",
-	},
-	// {
-	// 	name: 'Bandwidth',
-	// 	left:
-	// }
+	}
 ];
 
 const postgres: Comparison[] = [
@@ -56,33 +52,31 @@ const postgres: Comparison[] = [
 		name: "Free Compute Time",
 		good: "right",
 		left: 60,
-		right: 730,
+		right: 192,
 		unit: "hours",
-		rightInfo: "Unlimited compute time, total 730 hours per month",
 		per: 1,
 		perUnit: "month",
 	},
 	{
-		name: "Paid Compute Time",
-		good: "equal",
-		left: 0.102,
-		right: 0.102,
-		unit: "$",
-		per: 1,
-		perUnit: "hour",
+	name: "Paid Compute Time",
+	good: "left",
+	left: 0.1,
+	right: 0.102,
+	unit: "$",
+	per: 1,
+	perUnit: "hour",
 	},
 	{
 		name: "Free Storage",
 		good: "right",
 		left: 0.25,
-		right: 3,
+		right: 0.5,
 		unit: "GB",
-		rightInfo: "3 GB per database branch",
 	},
 	{
 		name: "Paid Storage",
-		good: "right",
-		left: 0.3,
+		good: "equal",
+		left: 0.12,
 		right: 0.12,
 		unit: "$",
 		per: 1,
@@ -91,7 +85,7 @@ const postgres: Comparison[] = [
 	{
 		name: "Written data",
 		good: "equal",
-		left: 0.1,
+		left: 0.096,
 		right: 0.096,
 		unit: "$",
 		per: 1,
@@ -100,113 +94,18 @@ const postgres: Comparison[] = [
 	{
 		name: "Data transfer",
 		good: "right",
-		left: 0.2,
+		left: 0.1,
 		right: 0.096,
 		unit: "$",
 		per: 1,
 		perUnit: "GB",
-	},
+	}
 ];
 
-const blob: Comparison[] = [
-	{
-		name: "Reads per month",
-		good: "right",
-		left: 2,
-		right: 0.36,
-		unit: "$",
-		per: 1000000,
-	},
-	{
-		name: "Writes per month",
-		good: "right",
-		left: 5.5,
-		right: 4.5,
-		unit: "$",
-		per: 1000000,
-	},
-	{
-		name: "Storage",
-		good: "right",
-		left: 0.03,
-		right: 0.015,
-		unit: "$",
-		per: 1,
-		perUnit: "GB",
-	},
-	{
-		name: "Bandwidth",
-		good: "right",
-		left: 0.15,
-		right: 0,
-		unit: "$",
-		per: 1,
-		perUnit: "GB",
-	},
-];
-
-const edgeConfig: Comparison[] = [
-	{
-		name: "Free Reads (Hobby)",
-		left: 50000,
-		right: 100000,
-		good: "right",
-		per: 1,
-		perUnit: "month",
-	},
-	{
-		name: "Free Reads (Pro)",
-		left: 1000000,
-		right: 10000000,
-		good: "right",
-		per: 1,
-		perUnit: "month",
-	},
-	{
-		name: "Paid Reads",
-		left: 3,
-		right: 0.5,
-		good: "right",
-		unit: "$",
-		per: 1000000,
-	},
-	{
-		name: "Free Writes (Hobby)",
-		left: 250,
-		right: 30000,
-		good: "right",
-		per: 1,
-		perUnit: "month",
-	},
-	{
-		name: "Free Writes (Pro)",
-		left: 1000,
-		right: 1000000,
-		good: "right",
-		per: 1,
-		perUnit: "month",
-	},
-	{
-		name: "Paid Writes",
-		left: 10000,
-		right: 5,
-		good: "right",
-		unit: "$",
-		per: 1000000,
-	},
-	{
-		name: "Max Storage",
-		left: 0.000064,
-		right: 1,
-		good: "right",
-		unit: "GB",
-		leftInfo: "64 KB per store on pro plan, max of 3 stores",
-	},
-];
 ---
 
-<Layout title="Vercel Markup">
-	<h1 class="text-5xl text-center my-2">Vercel Markup</h1>
+<Layout title="Vercel Storage Markup">
+	<h1 class="text-5xl text-center my-2">Vercel Storage Markup</h1>
 	<p class="text-purple-400 gap-2 flex justify-center items-center">
 		made by <span class="font-bold">Ottomated</span> in 3 hours
 		<a href="https://twitter.com/Ottomated_" target="_blank">
@@ -224,17 +123,14 @@ const edgeConfig: Comparison[] = [
 			>
 		</a>
 	</p>
-	<p class="max-w-2xl mx-auto text-slate-200 text-lg">
-		Many of Vercel&apos;s products are built on top of another service. They
-		usually add a significant markup that may not outweigh the convenience. This
-		documents the markup percentage for each service based on their reported
-		pricing, although some numbers are estimates.
+	<p class="max-w-2xl mx-auto text-slate-200 text-lg my-4">
+		Many of Vercel&apos;s products are built on top of another service. They often charge more than using the service directly, although this has been improving recently. This site documents two of said products (KV and Postgres) and may be out of date.
 	</p>
 
 	<Section
 		left="Vercel KV"
 		leftHref="https://vercel.com/docs/storage/vercel-kv/usage-and-pricing"
-		rightHref="https://docs.upstash.com/redis/overall/pricing"
+		rightHref="https://upstash.com/pricing"
 		right="Upstash"
 		comparisons={kv}
 	>
@@ -376,88 +272,4 @@ const edgeConfig: Comparison[] = [
 			></svg
 		>
 	</Section>
-	<p
-		class="text-center bg-yellow-900 border border-yellow-700 text-yellow-100 py-1 px-2 rounded-full w-fit mx-auto"
-	>
-		Note: Vercel Blob pricing is in beta.
-	</p>
-	<Section
-		left="Vercel Blob"
-		right="Cloudflare R2"
-		leftHref="https://vercel.com/docs/storage/vercel-blob/usage-and-pricing"
-		rightHref="https://developers.cloudflare.com/r2/pricing/"
-		comparisons={blob}
-	>
-		<svg slot="left-icon" fill="none" height="36" viewBox="0 0 36 36" width="36"
-			><path
-				d="M32.5 19V18V8.5C32.5 5.73858 30.2614 3.5 27.5 3.5H8.5C5.73858 3.5 3.5 5.73858 3.5 8.5V27.5C3.5 30.2614 5.73858 32.5 8.5 32.5H20.5"
-				fill="rgba(212,89,0,.5)"
-				stroke="#eb904d"
-				stroke-linecap="round"
-				stroke-width="1.25"></path><path
-				d="M20.7235 25.9626V21.3405C20.7235 20.1386 23.346 19.1409 26.7877 18.9485C25.896 14.5128 22.3002 10 18 10C13.0294 10 9 16.0294 9 21C9 25.9706 13.0294 26 18 26C18.9493 26 19.8643 25.9989 20.7235 25.9626Z"
-				fill="#eb904d"
-				fill-opacity="0.15"
-				stroke="#eb904d"
-				stroke-width="1.25"></path><path
-				d="M28.0265 18.9C24.0078 18.9 20.75 19.9859 20.75 21.3255V26.985V32.6445C20.75 33.9866 23.984 35.07 28.0265 35.07C32.069 35.07 35.303 33.9866 35.303 32.6445V26.985V21.3255C35.303 19.9859 32.0452 18.9 28.0265 18.9Z"
-				fill="#0f172a"></path><path
-				d="M35.303 21.3255C35.303 22.6651 32.0452 23.751 28.0265 23.751C24.0078 23.751 20.75 22.6651 20.75 21.3255M35.303 21.3255C35.303 19.9859 32.0452 18.9 28.0265 18.9C24.0078 18.9 20.75 19.9859 20.75 21.3255M35.303 21.3255V32.6445M35.303 21.3255V26.985M20.75 21.3255V32.6445M20.75 21.3255V26.985M35.303 26.985C35.303 28.3271 32.069 29.4105 28.0265 29.4105C23.984 29.4105 20.75 28.3271 20.75 26.985M35.303 26.985V32.6445M20.75 26.985V32.6445M20.75 32.6445C20.75 33.9866 23.984 35.07 28.0265 35.07C32.069 35.07 35.303 33.9866 35.303 32.6445"
-				stroke="#eb904d"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="1.25"></path></svg
-		>
-		<svg slot="right-icon" width="36" height="36" viewBox="0 0 40 40"
-			><path
-				fill="rgb(243, 128, 32)"
-				fill-rule="evenodd"
-				d="M30.289 6.423c-2.43-.813-5.958-1.362-9.977-1.362-4.018.0-7.545.549-9.976 1.362-1.228.41-2.033.842-2.48 1.195-.094.074-.16.134-.204.18.052.171.196.395.562.67.524.394 1.372.783 2.563 1.119 2.368.666 5.731 1.023 9.536 1.023 3.804.0 7.167-.357 9.535-1.023 1.191-.336 2.04-.725 2.563-1.119.366-.275.51-.499.562-.67a2.211 2.211.0 00-.204-.18c-.447-.353-1.252-.784-2.48-1.195zm-20.24 5.624c-.885-.25-1.71-.552-2.424-.922v4.393c0 .196.097.514.625.941.535.433 1.391.869 2.576 1.252 2.36.764 5.71 1.222 9.486 1.222 3.778.0 7.128-.458 9.487-1.222 1.185-.383 2.041-.82 2.576-1.252.528-.427.625-.745.625-.94v-4.394c-.715.37-1.539.673-2.424.922-2.7.76-6.336 1.124-10.264 1.124-3.927.0-7.564-.364-10.263-1.124zm25.576 3.471V7.622c0-2.829-6.856-5.122-15.313-5.122C11.857 2.5 5 4.793 5 7.622v24.756c0 2.829 6.856 5.122 15.313 5.122 8.456.0 15.312-2.293 15.312-5.122v-16.86zM33 19.134c-.7.393-1.505.726-2.375 1.008-2.708.877-6.358 1.352-10.313 1.352-3.954.0-7.604-.475-10.312-1.352-.87-.282-1.676-.615-2.375-1.008v4.28c0 .196.097.514.625.942.535.432 1.391.868 2.576 1.252 2.36.763 5.71 1.221 9.486 1.221 3.778.0 7.128-.458 9.487-1.221 1.185-.384 2.041-.82 2.576-1.252.528-.428.625-.746.625-.941v-4.28zm-23 8.904c-.87-.281-1.676-.615-2.375-1.007v5.143c.044.048.116.117.231.208.447.353 1.252.785 2.48 1.195 2.43.813 5.958 1.362 9.976 1.362 4.019.0 7.546-.549 9.977-1.362 1.228-.41 2.033-.842 2.48-1.195a2.03 2.03.0 00.231-.208v-5.143c-.7.392-1.505.726-2.375 1.007-2.708.877-6.358 1.352-10.313 1.352-3.954.0-7.604-.475-10.312-1.352zm23.06 4.06-.01.016a.059.059.0 01.01-.016zm-25.495.0.01.016a.06.06.0 01-.01-.016zm3.997-15.726c.725.0 1.313-.573 1.313-1.28.0-.708-.588-1.281-1.313-1.281-.724.0-1.312.573-1.312 1.28.0.708.588 1.281 1.313 1.281zm1.313 6.83c0 .706-.588 1.28-1.313 1.28-.724.0-1.312-.574-1.312-1.28.0-.708.588-1.281 1.313-1.281.724.0 1.312.573 1.312 1.28zm-1.313 9.176c.725.0 1.313-.573 1.313-1.28.0-.708-.588-1.28-1.313-1.28-.724.0-1.312.572-1.312 1.28.0.707.588 1.28 1.313 1.28z"
-				clip-rule="evenodd"></path></svg
-		>
-	</Section>
-	<!-- <Section
-		left="Vercel Edge Config"
-		right="Cloudflare KV"
-		leftHref="https://vercel.com/docs/storage/edge-config/edge-config-limits"
-		rightHref="https://developers.cloudflare.com/workers/platform/pricing#workers-kv"
-		comparisons={edgeConfig}
-	>
-		<svg slot="left-icon" fill="none" height="36" viewBox="0 0 36 36" width="36"
-			><path
-				d="M32.5 19V18V8.5C32.5 5.73858 30.2614 3.5 27.5 3.5H8.5C5.73858 3.5 3.5 5.73858 3.5 8.5V27.5C3.5 30.2614 5.73858 32.5 8.5 32.5H20.5"
-				fill="rgba(138,66,172,.5)"
-				stroke="#b07aca"
-				stroke-linecap="round"
-				stroke-width="1.25"></path><path
-				d="M8.20599 17.821V16.9687C8.84615 16.9687 9.29311 16.8381 9.5469 16.5767C9.80069 16.3115 9.92758 15.874 9.92758 15.2642V13.6335C9.92758 13.054 9.99198 12.5672 10.1208 12.1733C10.2533 11.7756 10.4541 11.4574 10.723 11.2187C10.992 10.9801 11.3329 10.8078 11.7458 10.7017C12.1586 10.5956 12.6454 10.5426 13.206 10.5426V11.8892C12.7666 11.8892 12.4238 11.9536 12.1776 12.0824C11.9314 12.2112 11.759 12.4119 11.6605 12.6846C11.5658 12.9536 11.5185 13.2983 11.5185 13.7187V15.7869C11.5185 16.0786 11.4749 16.3494 11.3878 16.5994C11.3007 16.8456 11.1397 17.0596 10.9049 17.2415C10.67 17.4233 10.3348 17.5653 9.89918 17.6676C9.46357 17.7699 8.89918 17.821 8.20599 17.821ZM13.206 25.0369C12.6454 25.0369 12.1586 24.9839 11.7458 24.8778C11.3329 24.7718 10.992 24.5994 10.723 24.3608C10.4541 24.1221 10.2533 23.804 10.1208 23.4062C9.99198 23.0123 9.92758 22.5256 9.92758 21.946V20.3096C9.92758 19.7036 9.80069 19.268 9.5469 19.0028C9.29311 18.7377 8.84615 18.6051 8.20599 18.6051V17.7585C8.89918 17.7585 9.46357 17.8096 9.89918 17.9119C10.3348 18.0104 10.67 18.1525 10.9049 18.3381C11.1397 18.5199 11.3007 18.7358 11.3878 18.9858C11.4749 19.232 11.5185 19.5009 11.5185 19.7926V21.8608C11.5185 22.2775 11.5658 22.6203 11.6605 22.8892C11.759 23.1619 11.9314 23.3627 12.1776 23.4915C12.4238 23.624 12.7666 23.6903 13.206 23.6903V25.0369ZM8.20599 18.6051V16.9687H9.77986V18.6051H8.20599Z"
-				fill="#b07aca"></path><path
-				d="M19.0483 21.0256L18.9631 21.6449C18.9063 22.0994 18.8097 22.5729 18.6733 23.0653C18.5407 23.5615 18.4025 24.0218 18.2586 24.446C18.1184 24.8703 18.0029 25.2074 17.912 25.4574H16.7074C16.7567 25.2225 16.8248 24.9043 16.912 24.5028C16.9991 24.1051 17.0843 23.66 17.1676 23.1676C17.251 22.6752 17.3135 22.1733 17.3551 21.6619L17.412 21.0256H19.0483ZM18.162 16.3721C17.8514 16.3721 17.5843 16.2604 17.3608 16.0369C17.1373 15.8134 17.0256 15.5464 17.0256 15.2358C17.0256 14.9252 17.1373 14.66 17.3608 14.4403C17.5843 14.2168 17.8514 14.1051 18.162 14.1051C18.4726 14.1051 18.7396 14.2168 18.9631 14.4403C19.1866 14.66 19.2983 14.9252 19.2983 15.2358C19.2983 15.4441 19.2453 15.6354 19.1392 15.8096C19.037 15.9801 18.9006 16.1165 18.7301 16.2187C18.5597 16.321 18.3703 16.3721 18.162 16.3721Z"
-				fill="#b07aca"></path><path
-				d="M22.7941 10.5426C23.3547 10.5426 23.8414 10.5956 24.2543 10.7017C24.6672 10.8078 25.0081 10.9801 25.277 11.2187C25.546 11.4574 25.7448 11.7756 25.8736 12.1733C26.0062 12.5672 26.0725 13.054 26.0725 13.6335V15.2642C26.0725 15.874 26.1994 16.3115 26.4532 16.5767C26.7069 16.8381 27.1539 16.9687 27.7941 16.9687V17.821C27.1009 17.821 26.5365 17.7699 26.1009 17.6676C25.6653 17.5653 25.33 17.4233 25.0952 17.2415C24.8603 17.0596 24.6994 16.8456 24.6122 16.5994C24.5251 16.3494 24.4816 16.0786 24.4816 15.7869V13.7187C24.4816 13.2983 24.4323 12.9536 24.3338 12.6846C24.2391 12.4119 24.0687 12.2112 23.8225 12.0824C23.5763 11.9536 23.2335 11.8892 22.7941 11.8892V10.5426ZM27.7941 16.9687V18.6051H26.2202V17.8858V16.9687H27.7941Z"
-				fill="#b07aca"></path><path
-				d="M26.4532 19.0028C26.7069 18.7377 27.1539 18.6051 27.7941 18.6051H26.2202V17.8858C26.1794 17.8941 26.1396 17.9028 26.1009 17.9119C25.6653 18.0104 25.33 18.1525 25.0952 18.3381C24.8603 18.5199 24.6994 18.7358 24.6122 18.9858L26.4532 19.0028Z"
-				fill="#b07aca"></path><path
-				d="M28.0265 18.9C24.0078 18.9 20.75 19.9859 20.75 21.3255V26.985V32.6445C20.75 33.9866 23.984 35.07 28.0265 35.07C32.069 35.07 35.303 33.9866 35.303 32.6445V26.985V21.3255C35.303 19.9859 32.0452 18.9 28.0265 18.9Z"
-				fill="#0f172a"></path><path
-				d="M35.303 21.3255C35.303 22.6651 32.0452 23.751 28.0265 23.751C24.0078 23.751 20.75 22.6651 20.75 21.3255M35.303 21.3255C35.303 19.9859 32.0452 18.9 28.0265 18.9C24.0078 18.9 20.75 19.9859 20.75 21.3255M35.303 21.3255V32.6445M35.303 21.3255V26.985M20.75 21.3255V32.6445M20.75 21.3255V26.985M35.303 26.985C35.303 28.3271 32.069 29.4105 28.0265 29.4105C23.984 29.4105 20.75 28.3271 20.75 26.985M35.303 26.985V32.6445M20.75 26.985V32.6445M20.75 32.6445C20.75 33.9866 23.984 35.07 28.0265 35.07C32.069 35.07 35.303 33.9866 35.303 32.6445"
-				stroke="#b07aca"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="1.25"></path></svg
-		>
-		<svg
-			fill="rgb(243, 128, 32)"
-			width="36"
-			slot="right-icon"
-			viewBox="0 0 48 49"
-			><path
-				d="m18.63 37.418-9.645-12.9 9.592-12.533-1.852-2.527L5.917 23.595l-.015 1.808 10.86 14.542 1.868-2.527z"
-			></path><path
-				d="M21.997 6.503h-3.712l13.387 18.3-13.072 17.7h3.735L35.4 24.81 21.997 6.503z"
-			></path><path
-				d="M29.175 6.503h-3.758l13.598 18.082-13.598 17.918h3.765l12.908-17.01v-1.808L29.175 6.503z"
-			></path></svg
-		>
-	</Section> -->
 </Layout>
