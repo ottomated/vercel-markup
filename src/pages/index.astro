@@ -44,7 +44,6 @@ const kv: Comparison[] = [
     unit: "$",
     per: 1,
     perUnit: "GB",
-    rightInfo: "0.25 GB",
   }
 ];
 
@@ -125,13 +124,13 @@ const postgres: Comparison[] = [
 		</a>
 	</p>
 	<p class="max-w-2xl mx-auto text-slate-200 text-lg my-4">
-		Vercel offers two storage products which are built on top of other services. These services (KV and Postgres) have different limits and prices versus using the service (Upstash and Neon) directly.
+		Many of Vercel&apos;s products are built on top of another service. They often charge more than using the service directly, although this has been improving recently. This site documents two of said products (KV and Postgres) and may be out of date.
 	</p>
 
 	<Section
 		left="Vercel KV"
 		leftHref="https://vercel.com/docs/storage/vercel-kv/usage-and-pricing"
-		rightHref="https://docs.upstash.com/redis/overall/pricing"
+		rightHref="https://upstash.com/pricing"
 		right="Upstash"
 		comparisons={kv}
 	>
